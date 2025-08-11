@@ -1,9 +1,9 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-    Name = "Instant Proximity Promps",
+    Name = "Labubu Unboxing Sim Hub",
     Icon = 0,
-    LoadingTitle = "Instant Proximity Prompts",
+    LoadingTitle = "Labubu Unboxing Sim Hub",
     LoadingSubtitle = "by Plasma",
     ShowText = "Rayfield",
     Theme = "Default",
@@ -15,7 +15,7 @@ local Window = Rayfield:CreateWindow({
 local PlayerTab = Window:CreateTab("Main", 4483362458)
 
 PlayerTab:CreateButton({
-    Name = "Toggle On",
+    Name = "Instant Open Boxes",
     Callback = function()
         local ProximityPromptService = game:GetService("ProximityPromptService")
 
@@ -32,4 +32,5 @@ PlayerTab:CreateButton({
         end
     end
 })
+
 
