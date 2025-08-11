@@ -48,3 +48,23 @@ PlayerTab:CreateButton({
         end)
     end
 })
+
+
+
+
+
+
+
+local PlayerTab = Window:CreateTab("Misc", 4483362458)
+
+PlayerTab:CreateButton({
+    Name = "Copy Discord Server Link",
+    Callback = function()
+        setclipboard("https://discord.gg/9h8g9pYcwT") -- replace with your real invite
+        Rayfield:Notify({
+            Title = "Copied!",
+            Content = "Discord invite link has been copied to clipboard.",
+            Duration = 4
+        })
+    end
+})
