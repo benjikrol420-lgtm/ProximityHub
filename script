@@ -34,3 +34,17 @@ PlayerTab:CreateButton({
 })
 
 
+PlayerTab:CreateButton({
+    Name = "Auto Sell",
+    Callback = function()
+        task.spawn(function()
+            while true do
+                local args = {
+                    "Option1"
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("SellChoiceEvent"):FireServer(unpack(args))
+                wait(1) -- Give a delay to prevent spam/crashes
+            end
+        end)
+    end
+})
