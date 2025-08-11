@@ -1,1 +1,35 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+    Name = "Instant Proximity Promps",
+    Icon = 0,
+    LoadingTitle = "Instant Proximity Prompts",
+    LoadingSubtitle = "by Plasma",
+    ShowText = "Rayfield",
+    Theme = "Default",
+    ToggleUIKeybind = "K",
+    DisableRayfieldPrompts = false,
+    DisableBuildWarnings = false
+})
+
+local PlayerTab = Window:CreateTab("Main", 4483362458)
+
+PlayerTab:CreateButton({
+    Name = "Toggle On",
+    Callback = function()
+        local ProximityPromptService = game:GetService("ProximityPromptService")
+
+        if fireproximityprompt then
+            task.wait(0.1)
+            ProximityPromptService.PromptButtonHoldBegan:Connect(function(prompt)
+                if prompt.HoldDuration > 0 then
+                    prompt.HoldDuration = 0
+                end
+                fireproximityprompt(prompt)
+            end)
+        else
+            print("No instant ProximityPrompt support")
+        end
+    end
+})
 
