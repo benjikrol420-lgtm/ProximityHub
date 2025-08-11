@@ -14,14 +14,31 @@ local Window = Rayfield:CreateWindow({
 
 local PlayerTab = Window:CreateTab("Main", 4483362458)
 
-PlayerTab:CreateButton({
+-- Toggle: Instant Open Boxes
+local instantOpenEnabled = false
+local promptConnection = nil
+
+PlayerTab:CreateToggle({
     Name = "Instant Open Boxes",
-    Callback = function()
+    Default = false,
+    Callback = function(state)
+        instantOpenEnabled = state
+
+        -- Disconnect if toggled off
+        if not instantOpenEnabled then
+            if promptConnection then
+                promptConnection:Disconnect()
+                promptConnection = nil
+            end
+            return
+        end
+
+        -- Toggle ON logic
         local ProximityPromptService = game:GetService("ProximityPromptService")
 
         if fireproximityprompt then
             task.wait(0.1)
-            ProximityPromptService.PromptButtonHoldBegan:Connect(function(prompt)
+            promptConnection = ProximityPromptService.PromptButtonHoldBegan:Connect(function(prompt)
                 if prompt.HoldDuration > 0 then
                     prompt.HoldDuration = 0
                 end
@@ -34,20 +51,28 @@ PlayerTab:CreateButton({
 })
 
 
-PlayerTab:CreateButton({
+-- Toggle: Auto Sell
+local autoSellEnabled = false
+
+PlayerTab:CreateToggle({
     Name = "Auto Sell",
-    Callback = function()
+    Default = false,
+    Callback = function(state)
+        autoSellEnabled = state
+
+        -- Start loop only when enabled
         task.spawn(function()
-            while true do
+            while autoSellEnabled do
                 local args = {
                     "Option1"
                 }
                 game:GetService("ReplicatedStorage"):WaitForChild("SellChoiceEvent"):FireServer(unpack(args))
-                wait(1) -- Give a delay to prevent spam/crashes
+                wait(1)
             end
         end)
     end
 })
+
 
 
 
